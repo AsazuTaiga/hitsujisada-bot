@@ -1,0 +1,6 @@
+name = "hitsujisada-bot"
+main = "src/worker.ts"
+compatibility_date = "2026-05-07"
+
+[vars]
+GEMINI_MODEL = "gemini-2.5-flash"
