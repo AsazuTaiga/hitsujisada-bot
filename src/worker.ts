@@ -127,7 +127,7 @@ async function answerLater(interaction: DiscordInteraction, prompt: string, env:
 
   try {
     const answer = await callGemini(prompt, userName, env);
-    await editOriginalInteractionResponse(interaction, answer);
+    await editOriginalInteractionResponse(interaction, formatAnswerWithUserInput(prompt, answer));
   } catch (error) {
     const message = error instanceof Error ? error.message : "unknown error";
     await editOriginalInteractionResponse(
@@ -267,6 +267,10 @@ function hexToBytes(hex: string): Uint8Array<ArrayBuffer> {
 
 function truncateDiscordMessage(message: string): string {
   return message.length > 1900 ? `${message.slice(0, 1897)}...` : message;
+}
+
+function formatAnswerWithUserInput(prompt: string, answer: string): string {
+  return truncateDiscordMessage(`user:「${prompt}」\n\n${answer}`);
 }
 
 function json(payload: unknown, init?: ResponseInit): Response {
